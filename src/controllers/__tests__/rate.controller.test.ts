@@ -1,6 +1,7 @@
 import { RateController } from '../rate.controller';
 import { mockReq, mockRes, mockNext } from '../../mocks/express';
 import { RateService } from '../../services/rate.service';
+import { RateErrors } from '../../constants/errors';
 
 const mockPrice = '20000';
 
@@ -12,8 +13,12 @@ const mockedReq = mockReq();
 const mockedRes = mockRes();
 const mockedNext = mockNext();
 
+beforeEach(() => {
+    jest.clearAllMocks();
+});
+
 describe('Rate controller', () => {
-    it('fetcher rate and sends it', async () => {
+    it('fetches rate and sends it', async () => {
         await RateController.getRateBTCUAHController(
             mockedReq,
             mockedRes,
@@ -35,5 +40,18 @@ describe('Rate controller', () => {
         );
 
         expect(mockedNext).toBeCalledWith(error);
+    });
+
+    it('returns status 400 if no rate was fetched', async () => {
+        getRateSpy.mockReturnValue(new Promise((res, rej) => res('')));
+        await RateController.getRateBTCUAHController(
+            mockedReq,
+            mockedRes,
+            mockedNext
+        );
+
+        expect(getRateSpy).toBeCalled();
+        expect(mockedRes.status).toBeCalledWith(400);
+        expect(mockedRes.send).toBeCalledWith(RateErrors.rateFetchFail);
     });
 });

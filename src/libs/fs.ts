@@ -8,6 +8,7 @@ export const getEmailsFromDB = async () => {
             encoding: 'utf8',
             flag: 'r',
         });
+        
         const emailsArray = emails.split(',');
         return emailsArray;
     }

@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
-import express, { Express, Request, Response } from 'express';
+import express, { Express } from 'express';
 
+import statusRouter from './routes/status.router';
 import emailRouter from './routes/email.router';
 import rateRouter from './routes/rate.router';
 
@@ -12,10 +13,7 @@ const app: Express = express();
 
 app.use(errorHandlerMiddleware);
 
-app.get('/status', (req: Request, res: Response) => {
-    res.status(200).send({ status: true });
-});
-
+app.use(statusRouter);
 app.use(emailRouter);
 app.use(rateRouter);
 

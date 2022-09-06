@@ -17,6 +17,8 @@ export class EmailService {
             return { status: 200, message: 'E-mail додано' };
         }
 
+        
+
         if (emailsArray.includes(email)) return { status: 409, message: email };
 
         await fs.promises.appendFile(pathToFileDB, `,${email}`);

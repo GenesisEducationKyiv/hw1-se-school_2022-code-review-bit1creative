@@ -1,12 +1,15 @@
 import { NextFunction, Request, Response } from 'express';
-import { AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
 
 export const errorHandlerMiddleware = (
-    error: AxiosError,
+    error: Error | AxiosError,
     request: Request,
     response: Response,
     next: NextFunction
 ) => {
-    const status = error.status || 400;
-    response.status(+status).send(error.message);
+    let status = 400;
+    if(axios.isAxiosError(error)) {
+        status = Number(error.status) ?? 400;
+    }
+    response.status(status).send(error.message);
 };
