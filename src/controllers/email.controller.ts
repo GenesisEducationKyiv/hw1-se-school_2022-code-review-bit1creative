@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { EmailService } from '../services/email.service';
+import * as EmailService  from '../services/email.service';
 
 export class EmailController {
     static subscribe = async (

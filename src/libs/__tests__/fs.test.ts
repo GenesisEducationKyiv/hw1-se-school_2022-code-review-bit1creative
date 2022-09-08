@@ -1,6 +1,5 @@
 import fs, { promises } from 'fs';
 import { getEmailsFromDB } from '../fs';
-import { pathToFolderDB, pathToFileDB } from '../../constants/essentials';
 
 const mockedEmailsInDB = 'email@gmail.com,email2@gmail.com';
 const mockedExistsSyncSpy = jest.spyOn(fs, 'existsSync').mockReturnValue(false);
@@ -17,7 +16,7 @@ describe('fs lib test', () => {
     it('returns an empty array if there is no db (folder with file)', async () => {
         const emails = await getEmailsFromDB();
 
-        expect(emails).toStrictEqual([]);
+        expect(emails).toStrictEqual('');
     });
 
     it('returns parsed emails', async () => {
@@ -28,6 +27,6 @@ describe('fs lib test', () => {
 
         const emails = await getEmailsFromDB();
 
-        expect(emails).toStrictEqual(mockedEmailsInDB.split(','));
+        expect(emails).toStrictEqual(mockedEmailsInDB);
     });
 });

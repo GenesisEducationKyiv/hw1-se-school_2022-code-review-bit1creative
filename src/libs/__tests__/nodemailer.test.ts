@@ -1,4 +1,4 @@
-import { sendEmails } from '../nodemailer';
+import { sendEmailsNodemailer } from '../nodemailer';
 
 const OLD_ENV = process.env;
 const rate = '22000';
@@ -22,7 +22,7 @@ describe('Nodemailer lib tests', () => {
         process.env.GMAIL_AUTH_MAIL = 'gmailauth@gmail.com';
         process.env.GMAIL_APP_PASS = 'gmailpass';
 
-        const res = await sendEmails(rate, emailsArray);
+        const res = await sendEmailsNodemailer(rate, emailsArray);
 
         expect(res).toStrictEqual(mockSendMailReturn);
     });
