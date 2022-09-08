@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-import { pathToFolderDB, pathToFileDB } from '../constants';
+import { pathToFolderDB, pathToFileDB } from '../constants/essentials';
 
 export const getEmailsFromDB = async () => {
     if (fs.existsSync(pathToFolderDB)) {
@@ -8,6 +8,7 @@ export const getEmailsFromDB = async () => {
             encoding: 'utf8',
             flag: 'r',
         });
+        
         const emailsArray = emails.split(',');
         return emailsArray;
     }

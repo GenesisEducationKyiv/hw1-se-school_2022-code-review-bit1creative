@@ -4,17 +4,20 @@ import { getEmailsFromDB } from '../libs/fs';
 import { getRateBTCUAH } from '../api/binance';
 import { sendEmails } from '../libs/nodemailer';
 
-import { pathToFileDB, pathToFolderDB } from '../constants';
+import { pathToFileDB, pathToFolderDB } from '../constants/essentials';
+import { EmailErrors } from '../constants/errors';
 
 export class EmailService {
     static addEmailToDB = async (email: string) => {
         const emailsArray = await getEmailsFromDB();
 
         if (!emailsArray.length) {
-            await fs.promises.mkdir(pathToFolderDB);
+            await fs.promises.mkdir(pathToFolderDB, { recursive: true });
             await fs.promises.appendFile(pathToFileDB, email);
             return { status: 200, message: 'E-mail додано' };
         }
+
+        
 
         if (emailsArray.includes(email)) return { status: 409, message: email };
 
@@ -32,6 +35,6 @@ export class EmailService {
                 return { status: 200, message: 'E-mailʼи відправлено' };
             }
         }
-        throw new Error('Щось пішло не так :(');
+        throw new Error(EmailErrors.didntSent);
     };
 }

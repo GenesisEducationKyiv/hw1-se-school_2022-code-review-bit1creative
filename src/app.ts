@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
-import express, { Express, Request, Response } from 'express';
+import express, { Express } from 'express';
 
+import statusRouter from './routes/status.router';
 import emailRouter from './routes/email.router';
 import rateRouter from './routes/rate.router';
 
@@ -9,17 +10,11 @@ import { errorHandlerMiddleware } from './middlewares/error.middleware';
 dotenv.config();
 
 const app: Express = express();
-const port = process.env.PORT;
 
 app.use(errorHandlerMiddleware);
 
-app.get('/status', (req: Request, res: Response) => {
-    res.status(200).send({ status: true });
-});
-
+app.use(statusRouter);
 app.use(emailRouter);
 app.use(rateRouter);
 
-app.listen(port, () => {
-    console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
-});
+export default app;

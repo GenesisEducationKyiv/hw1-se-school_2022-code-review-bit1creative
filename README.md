@@ -34,5 +34,6 @@ I'm not adding **`.env`** to .gitignore but I've created a .env_sample file as i
 [Swagger](https://github.com/AndriiPopovych/gses/blob/main/gses2swagger.yaml)
 
 
+# Use Node version 17 for successful test runs
 
 **P.S.** Didn't write any test because was doing task on Saturday evening :(
