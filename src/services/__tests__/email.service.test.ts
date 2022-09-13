@@ -1,6 +1,6 @@
 import { promises } from 'fs';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
-import { EmailService } from '../email.service';
+import * as EmailService from '../email.service';
 import * as fsLib from '../../libs/fs';
 import * as nodemailerLib from '../../libs/nodemailer';
 import * as binance from '../../api/binance';
@@ -10,25 +10,23 @@ const mockEmail = 'email@gmail.com';
 
 const mockedGetEmailsFromDB = jest
     .spyOn(fsLib, 'getEmailsFromDB')
-    .mockReturnValue(new Promise((res, rej) => res([])));
+    .mockReturnValue(new Promise((res, rej) => res('')));
 
-const mockedSendEmails = jest
-    .spyOn(nodemailerLib, 'sendEmails')
-    .mockReturnValue(
-        new Promise((res, rej) =>
-            res({
-                rejected: [],
-                envelope: {
-                    from: false,
-                    to: [''],
-                },
-                messageId: '',
-                accepted: [''],
-                pending: [''],
-                response: '',
-            } as SMTPTransport.SentMessageInfo)
-        )
-    );
+jest.spyOn(nodemailerLib, 'sendEmailsNodemailer').mockReturnValue(
+    new Promise((res, rej) =>
+        res({
+            rejected: [],
+            envelope: {
+                from: false,
+                to: [''],
+            },
+            messageId: '',
+            accepted: [''],
+            pending: [''],
+            response: '',
+        } as SMTPTransport.SentMessageInfo)
+    )
+);
 
 const getRateSpy = jest
     .spyOn(binance, 'getRateBTCUAH')
@@ -61,7 +59,7 @@ describe('Email service', () => {
 
         it('doesnt add email if email is already in db', async () => {
             mockedGetEmailsFromDB.mockReturnValue(
-                new Promise((res, rej) => res([mockEmail]))
+                new Promise((res, rej) => res(mockEmail))
             );
             const response = await EmailService.addEmailToDB(mockEmail);
 
@@ -76,7 +74,7 @@ describe('Email service', () => {
 
         it('add email if there is no email in db but db exists', async () => {
             mockedGetEmailsFromDB.mockReturnValue(
-                new Promise((res, rej) => res(['somemail']))
+                new Promise((res, rej) => res('somemail'))
             );
 
             const response = await EmailService.addEmailToDB(mockEmail);
@@ -103,7 +101,7 @@ describe('Email service', () => {
 
         it('throws error if no emails', async () => {
             mockedGetEmailsFromDB.mockReturnValue(
-                new Promise((res, rej) => res([]))
+                new Promise((res, rej) => res(''))
             );
 
             const res = async () => await EmailService.sendEmails();

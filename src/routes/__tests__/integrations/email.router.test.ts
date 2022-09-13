@@ -98,7 +98,7 @@ describe('[integration test] - Email route', () => {
             await fs.promises.mkdir(pathToFolderDB);
             await fs.promises.writeFile(pathToFileDB, mockEmail);
 
-            jest.spyOn(nodemailer, 'sendEmails').mockReturnValue(
+            jest.spyOn(nodemailer, 'sendEmailsNodemailer').mockReturnValue(
                 new Promise((res, rej) =>
                     res({
                         rejected: [],
@@ -124,7 +124,7 @@ describe('[integration test] - Email route', () => {
             await fs.promises.mkdir(pathToFolderDB);
             await fs.promises.writeFile(pathToFileDB, mockEmail);
 
-            jest.spyOn(nodemailer, 'sendEmails').mockReturnValue(
+            jest.spyOn(nodemailer, 'sendEmailsNodemailer').mockReturnValue(
                 new Promise((res, rej) =>
                     res({
                         rejected: [mockEmail],

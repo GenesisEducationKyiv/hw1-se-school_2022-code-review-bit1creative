@@ -1,6 +1,6 @@
 import { EmailController } from '../email.controller';
 import { mockReq, mockRes, mockNext } from '../../mocks/express';
-import { EmailService } from '../../services/email.service';
+import * as EmailService from '../../services/email.service';
 
 const mockResponseSent = { status: 200, message: 'success' };
 
