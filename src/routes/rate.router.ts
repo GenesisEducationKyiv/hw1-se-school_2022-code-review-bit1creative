@@ -1,6 +1,7 @@
 import express from 'express';
-const router = express.Router();
 import { RateController } from '../controllers/rate.controller';
+
+const router = express.Router();
 
 router.get('/rate', RateController.getRateBTCUAHController);
 

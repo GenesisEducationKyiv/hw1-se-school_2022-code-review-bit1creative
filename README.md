@@ -28,6 +28,13 @@ The route `GET '/rate'` cannot return Number as Express res.send() cannot return
 
 I'm not adding **`.env`** to .gitignore but I've created a .env_sample file as it should be done
 
+# Used patterns and principles
+`SOLID`
+
+* Repository
+* Factory Method
+* Chains of responsibility
+* Singleton
 
 # API Documentation
 

@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import * as EmailService  from '../services/email.service';
+import * as EmailService from '../services/email.service';
+import { LocalStorageErrors } from '../constants/errors';
+import { EmailRouterRes } from '../constants/responses';
 
 export class EmailController {
     static subscribe = async (
@@ -9,10 +11,18 @@ export class EmailController {
     ) => {
         try {
             const { email } = req.query;
-            const { status, message } = await EmailService.addEmailToDB(
-                email as string
-            );
-            return res.status(status).send(message);
+            const { error, email: resEmail } =
+                await EmailService._EmailsDBRepository.addEmailToDB(
+                    email as string
+                );
+
+            if (error) {
+                if (error === LocalStorageErrors.ValueAlreadyExists) {
+                    return res.status(403).send(resEmail);
+                }
+                throw new Error(EmailRouterRes.EmailAddError);
+            }
+            return res.status(200).send(EmailRouterRes.EmailAddSuccess);
         } catch (err) {
             next(err);
         }

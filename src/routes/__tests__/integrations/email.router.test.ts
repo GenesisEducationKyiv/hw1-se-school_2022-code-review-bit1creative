@@ -4,9 +4,9 @@ import nock from 'nock';
 import App from '../../../app';
 import * as nodemailer from '../../../libs/nodemailer';
 
-import { pathToFileDB, pathToFolderDB } from '../../../constants/essentials';
+import { pathToFileDB, pathToFolderDB } from '../../../config';
 import { EmailErrors } from '../../../constants/errors';
-import { binanceUri } from '../../../constants/essentials';
+import { binanceUri } from '../../../config';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
 
 const mockedEmailsInDB = 'email1@gmail.com,email2@gmail.com';
@@ -47,7 +47,7 @@ describe('[integration test] - Email route', () => {
                 .expect(500)
                 .catch((err) =>
                     expect(err.message).toStrictEqual(
-                        EmailErrors.noEmailProvided
+                        EmailErrors.NoEmailProvided
                     )
                 );
         });
@@ -59,7 +59,7 @@ describe('[integration test] - Email route', () => {
                 .expect(500)
                 .catch((err) =>
                     expect(err.message).toStrictEqual(
-                        EmailErrors.badEmailFormat
+                        EmailErrors.BadEmailFormat
                     )
                 );
         });
@@ -144,7 +144,7 @@ describe('[integration test] - Email route', () => {
                 .post('/sendEmails')
                 .expect(500)
                 .catch((err) =>
-                    expect(err.message).toStrictEqual(EmailErrors.didntSent)
+                    expect(err.message).toStrictEqual(EmailErrors.DidntSent)
                 );
         });
     });

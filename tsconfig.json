@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "target": "ES2022",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     /* Modules */
     "module": "commonjs",                                /* Specify what module code is generated. */
 
@@ -13,9 +13,11 @@
 
     /* Type Checking */
     "strict": true,                                      /* Enable all strict type-checking options. */
+    "strictPropertyInitialization": false,
 
     /* Completeness */
     "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
+    "experimentalDecorators": true
   },
   "include": [
     "src/**/*"

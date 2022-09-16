@@ -9,8 +9,8 @@ export const emailMiddleware = (
     next: NextFunction
 ) => {
     const { email } = request.query;
-    if (!email) throw new Error(EmailErrors.noEmailProvided);
+    if (!email) throw new Error(EmailErrors.NoEmailProvided);
     if (!validateEmail(email as string))
-        throw new Error(EmailErrors.badEmailFormat);
+        throw new Error(EmailErrors.BadEmailFormat);
     next();
 };
