@@ -4,7 +4,7 @@ import * as binance from '../../api/binance';
 const mockPrice = '22000';
 
 const getRateSpy = jest
-    .spyOn(binance, 'getRateBTCUAH')
+    .spyOn(binance, 'getRateBTCUAH_Binance')
     .mockReturnValue(
         new Promise((res, rej) => res({ price: mockPrice, symbol: 'BTCUAH' }))
     );

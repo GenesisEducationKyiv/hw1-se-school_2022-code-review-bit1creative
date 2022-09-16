@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-import { rateResponseSchema } from '../schemas/rate.schema';
-import { binanceUri } from '../constants/essentials';
+import { binanceRateResponseSchema } from '../schemas/rate.schema';
+import { binanceUri } from '../config';
 
-export const getRateBTCUAH = async () => {
+export const getRateBTCUAH_Binance = async () => {
     const { data } = await axios({
         method: 'GET',
         url: `${binanceUri}/ticker/price`,
@@ -12,5 +12,5 @@ export const getRateBTCUAH = async () => {
         },
     });
 
-    return rateResponseSchema.parse(data);
+    return binanceRateResponseSchema.parse(data);
 };

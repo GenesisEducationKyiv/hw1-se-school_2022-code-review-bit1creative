@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { RateErrors } from '../constants/errors';
-import { RateService } from '../services/rate.service';
+import { RateService } from '../services/rate/rate.service';
 
 export class RateController {
     static getRateBTCUAHController = async (

@@ -106,7 +106,7 @@ describe('Email service', () => {
 
             const res = async () => await EmailService.sendEmails();
 
-            expect(res).rejects.toThrow(EmailErrors.didntSent);
+            expect(res).rejects.toThrow(EmailErrors.DidntSent);
         });
     });
 });

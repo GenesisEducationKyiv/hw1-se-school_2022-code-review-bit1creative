@@ -22,7 +22,7 @@ describe('Email middleware', () => {
     it('Throws an error if email was not provided', () => {
         const request = () => emailMiddleware(mockedReq, mockedRes, mockedNext);
 
-        expect(request).toThrow(EmailErrors.noEmailProvided);
+        expect(request).toThrow(EmailErrors.NoEmailProvided);
         expect(mockedNext).not.toBeCalled();
     });
 
@@ -42,7 +42,7 @@ describe('Email middleware', () => {
         mockedReqClone.query.email = mockMail;
         const request = () => emailMiddleware(mockedReqClone, mockedRes, mockedNext);
 
-        expect(request).toThrow(EmailErrors.badEmailFormat);
+        expect(request).toThrow(EmailErrors.BadEmailFormat);
         expect(mockedNext).not.toBeCalled();
     });
 });

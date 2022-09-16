@@ -2,7 +2,7 @@ import request from 'supertest';
 import nock from 'nock';
 import App from '../../../app';
 
-import { binanceUri } from '../../../constants/essentials';
+import { binanceUri } from '../../../config';
 import { RateErrors } from '../../../constants/errors';
 
 const mockedBinanceRes = { symbol: 'BTCUAH', price: '20000' };
