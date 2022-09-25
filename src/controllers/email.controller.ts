@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import * as EmailService from '../services/email.service';
+import * as EmailService from '../services/email/email.service';
 import { LocalStorageErrors } from '../constants/errors';
 import { EmailRouterRes } from '../constants/responses';
 

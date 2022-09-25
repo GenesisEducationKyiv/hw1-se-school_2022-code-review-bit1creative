@@ -1,5 +1,5 @@
 import NodeCache from 'node-cache';
-import { cacheTTL } from '../config';
+import config from '../config';
 
 interface IMemoryNodeCacheStatic {
     getValue(key: string): string | undefined;
@@ -21,7 +21,7 @@ export class MemoryNodeCache {
     private static initCache(): NodeCache {
         if (!MemoryNodeCache._cache) {
             MemoryNodeCache._cache = new NodeCache({
-                stdTTL: cacheTTL,
+                stdTTL: config.CACHE_TTL,
             });
         }
 

@@ -1,13 +1,10 @@
 import * as nodemailer from 'nodemailer';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
-import {
-    FALLBACK_AUTH_EMAIL,
-    FALLBACK_APP_PASS,
-} from '../constants/nodemailer';
+import config from '../config';
 
 export const sendEmailsNodemailer = async (rate: string, emails: string[]) => {
-    const authEmail = process.env.GMAIL_AUTH_MAIL ?? FALLBACK_AUTH_EMAIL;
-    const pass = process.env.GMAIL_APP_PASS ?? FALLBACK_APP_PASS;
+    const authEmail = config.GMAIL_AUTH_MAIL;
+    const pass = config.GMAIL_APP_PASS;
 
     const template = createMailTemplate(rate);
 

@@ -35,6 +35,8 @@ I'm not adding **`.env`** to .gitignore but I've created a .env_sample file as i
 * Factory Method
 * Chains of responsibility
 * Singleton
+* Proxy
+* Decorator
 
 # API Documentation
 
