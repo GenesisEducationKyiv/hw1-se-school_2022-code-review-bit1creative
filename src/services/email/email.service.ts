@@ -1,20 +1,10 @@
-import LocalDBStorage, { ILocalDBStorage } from '../libs/fs';
-import { getRateBTCUAH_Binance } from '../api/binance';
-import { sendEmailsNodemailer } from '../libs/nodemailer';
+import LocalDBStorage, { ILocalDBStorage } from '../../libs/fs';
+import { sendEmailsNodemailer } from '../../libs/nodemailer';
 
-import { pathToFileDB, pathToFolderDB } from '../config';
-import { EmailErrors, LocalStorageErrors } from '../constants/errors';
+import { GetEmailsFromDB, IEmailsDBRepository } from './email.interfaces';
+import { EmailErrors, LocalStorageErrors } from '../../constants/errors';
 import { parseEmails } from './helpers';
-
-type GetEmailsFromDB = {
-    error: null | string;
-    email: string;
-};
-
-interface IEmailsDBRepository {
-    addEmailToDB(email: string): Promise<GetEmailsFromDB>;
-    getEmailsFromDB(): Promise<string>;
-}
+import { RateService } from '../rate/rate.service';
 
 class EmailsDBRepository implements IEmailsDBRepository {
     private _localDBStorage: ILocalDBStorage;
@@ -43,12 +33,12 @@ class EmailsDBRepository implements IEmailsDBRepository {
 export const _EmailsDBRepository = new EmailsDBRepository(LocalDBStorage);
 
 export const sendEmails = async () => {
-    const { price } = await getRateBTCUAH_Binance();
+    const rate = await RateService.getRateBTCUAHService();
     const emails = await _EmailsDBRepository.getEmailsFromDB();
     const emailsArray = parseEmails(emails);
 
-    if (price && emails.length) {
-        const info = await sendEmailsNodemailer(price, emailsArray);
+    if (rate && emails.length) {
+        const info = await sendEmailsNodemailer(rate, emailsArray);
         if (info.rejected.length !== emailsArray.length) {
             return { status: 200, message: 'E-mailʼи відправлено' };
         }

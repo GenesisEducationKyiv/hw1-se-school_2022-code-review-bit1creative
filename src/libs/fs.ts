@@ -2,7 +2,7 @@ import { existsSync, read } from 'fs';
 import { mkdir, appendFile, readFile } from 'fs/promises';
 import { LocalStorageErrors } from '../constants/errors';
 
-import { pathToFolderDB, pathToFileDB } from '../config';
+import config from '../config';
 
 export interface ILocalDBStorage {
     write(value: string): Promise<string>;
@@ -58,4 +58,7 @@ class LocalDBStorage implements ILocalDBStorage {
     }
 }
 
-export default new LocalDBStorage(pathToFolderDB, pathToFileDB);
+export default new LocalDBStorage(
+    config.PATH_TO_FOLDER_DB,
+    config.PATH_TO_FILE_DB
+);
