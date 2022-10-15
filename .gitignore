@@ -1,0 +1,8 @@
+rate-app/coverage
+rate-app/dist
+rate-app/node_modules
+rate-app/.env
+logger-app/coverage
+logger-app/dist
+logger-app/node_modules
+logger-app/.env
