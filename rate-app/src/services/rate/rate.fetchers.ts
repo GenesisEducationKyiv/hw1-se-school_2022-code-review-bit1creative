@@ -1,6 +1,7 @@
 import { getRateBTCUAH_Binance } from '../../api/binance';
 import { getRateBTCUAH_CoinApi } from '../../api/coinapi';
 import config from '../../config';
+import { RabbitMQChannelPublisher } from '../../libs/rabbitMQ';
 import { RateLogger } from './rate.fetcher-decorator';
 import {
     IRateFetcherChain,
@@ -58,11 +59,17 @@ const RateFetcher = new RateFetcherCreator();
 
 RateFetcher.register(
     config.CRYPTO_CURRENCY_PROVIDERS.binance,
-    new RateLogger(new RateFetcherProxy(new RateFetcherBinance()))
+    new RateLogger(
+        new RateFetcherProxy(new RateFetcherBinance()),
+        new RabbitMQChannelPublisher()
+    )
 );
 RateFetcher.register(
     config.CRYPTO_CURRENCY_PROVIDERS.coinapi,
-    new RateLogger(new RateFetcherProxy(new RateFetcherCoinApi()))
+    new RateLogger(
+        new RateFetcherProxy(new RateFetcherCoinApi()),
+        new RabbitMQChannelPublisher()
+    )
 );
 
 export default RateFetcher;
