@@ -3,4 +3,4 @@ dist
 README.md
 .env
 .gitignore
-.env_samples
+.env_sample

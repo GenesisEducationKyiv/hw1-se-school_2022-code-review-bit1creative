@@ -10,4 +10,4 @@ export enum RateErrors {
 
 export enum LocalStorageErrors {
     ValueAlreadyExists = 'Value already exists'
-}
+} 
